@@ -1,0 +1,5 @@
+# Build
+docker build --network=host --rm -t mariadb:1.0.0 --file /home/juetxeba/inception/srcs/requirements/mariadb/Dockerfile ./
+
+# Check Docker images on your Linux machine
+#docker image list --all
