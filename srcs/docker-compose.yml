@@ -1,5 +1,81 @@
 # Build
-docker build --network=host --rm -t mariadb:1.0.0 --file /home/juetxeba/inception/srcs/requirements/mariadb/Dockerfile ./
+#docker build --network=host --rm -t mariadb:1.0.0 --file /home/juetxeba/inception/srcs/requirements/mariadb/Dockerfile ./
 
 # Check Docker images on your Linux machine
 #docker image list --all
+
+name: inception
+env_file: ./srcs/.env
+services:
+  mariadb:
+    build: ./srcs/requirements/mariadb
+    expose:
+      - "3306"
+    healthcheck:
+      test: ["bin/sh", "curl", "-f", "http://localhost"] ?
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
+    network:
+      - db-net
+    volumes:
+      - db-data: /home/juetxeba/Data/mariadb-volume:rw
+
+  nginx:
+    build: ./srcs/requirements/mariadb
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    expose:
+      - "443"
+    ports:
+      - "443:443"
+    healthcheck:
+      test: ["bin/sh", "curl", "-f", "http://localhost"] ?
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
+    domainname: juetxeba.42.fr
+    networks:
+      - wp-net
+    volumes:
+      - website-data
+
+  wordpress:
+    build: ./srcs/requirements/mariadb
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    expose:
+      - "9000"
+    healthcheck:
+      test: ["bin/sh", "curl", "-f", "http://localhost"] ?
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
+    network:
+      - db-net
+      - wp-net
+    volumes:
+      - website-data
+
+secrets:
+  <secretName1>:
+    file: ./secrets/<file>
+  <secretName2>:
+    file: ./secrets/<file>
+#ALSO ADD SECRET KEY TO EACH SERVICE INDICATING JUST
+#THE NAME OF THE SECRET AS HERE LISTED
+
+volumes:
+  - website-data: /home/juetxeba/Data/wordpress-volume:ro
+
+networks:
+  - db-net
+  - wp-net
