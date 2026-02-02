@@ -12,8 +12,6 @@ COPY tools/index.html /www/
 
 COPY tools/nginx.conf /etc/nginx/
 
-CMD nginx
-
-CMD /bin/sh
+CMD ["nginx"]
 
 WORKDIR /app
