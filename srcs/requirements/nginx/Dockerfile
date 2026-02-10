@@ -8,10 +8,14 @@ COPY tools/main.sh /usr/local/bin/
 
 COPY tools/cert.pem tools/key.pem /etc/nginx/ssl/
 
-COPY tools/index.html /www/
-
 COPY tools/nginx.conf /etc/nginx/
 
-CMD ["nginx"]
+RUN chmod +x /usr/local/bin/main.sh && \
+	mkdir -p /run/nginx /var/www/html && \
+	chown -R nobody:nobody /var/www/html
 
 WORKDIR /app
+
+EXPOSE 443
+
+CMD ["/usr/local/bin/main.sh"]

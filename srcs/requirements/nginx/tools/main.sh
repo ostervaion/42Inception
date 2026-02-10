@@ -1,8 +1,11 @@
+#!/bin/sh
 set -e
 
-adduser -D -g 'www' www
+echo "Starting nginx conf"
 
-mkdir /www 
-chown -R www:www /var/lib/nginx
-chown -R www:www /www
-mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
+adduser -D -g 'www' www
+mkdir -p /run/nginx
+mkdir -p /var/www/html
+chown -R nobody:nobody /var/www/html
+echo "Starting nginx"
+exec nginx -g "daemon off;"
