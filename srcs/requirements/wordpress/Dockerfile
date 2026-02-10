@@ -23,12 +23,16 @@ RUN apk update && apk add --no-cache \
     php82-simplexml \
     php82-iconv \
     less \
-    mariadb-client
+    mariadb-client &&\
+    ln -s /usr/bin/php82 /usr/bin/php
 
 # Install WP-CLI
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
+
+# Copy PHP conf, is used automatically
+COPY tools/custom.ini /etc/php82/conf.d/custom.ini
 
 # Copy setup script
 COPY tools/main.sh /usr/local/bin/
