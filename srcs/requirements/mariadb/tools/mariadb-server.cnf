@@ -17,6 +17,6 @@ innodb_flush_method = O_DIRECT
 character-set-server = utf8mb4
 collation-server     = utf8mb4_unicode_ci
 
-log-error = /proc/self/fd/2
+log-error = /dev/stderr
 
 max_connections = 50

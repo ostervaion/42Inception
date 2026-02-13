@@ -6,7 +6,7 @@ openssl
 
 COPY tools/main.sh /usr/local/bin/
 
-COPY tools/cert.pem tools/key.pem /etc/nginx/ssl/
+#COPY tools/cert.pem tools/key.pem /etc/nginx/ssl/
 
 COPY tools/nginx.conf /etc/nginx/
 

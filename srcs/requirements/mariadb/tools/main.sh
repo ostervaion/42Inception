@@ -1,6 +1,10 @@
 #!/bin/sh
 #set -e
 
+export MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+export MYSQL_USER=$(cat /run/secrets/db_user)
+export MYSQL_DATABASE=$(cat /run/secrets/db_name)
+
 # Verificamos si el directorio de sistema 'mysql' ya existe
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "Initializing database and user for the first time..."

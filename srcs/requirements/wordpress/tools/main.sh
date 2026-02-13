@@ -1,6 +1,17 @@
 #!/bin/sh
 set -e
 
+export MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+export MYSQL_USER=$(cat /run/secrets/db_user)
+export MYSQL_DATABASE=$(cat /run/secrets/db_name)
+
+export WP_ADMIN_EMAIL=$(cat /run/secrets/wp_admin_email)
+export WP_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_password)
+export WP_ADMIN_USER=$(cat /run/secrets/wp_admin_user)
+export WP_USER_EMAIL=$(cat /run/secrets/wp_user_email)
+export WP_USER=$(cat /run/secrets/wp_user)
+export WP_USER_PASSWORD=$(cat /run/secrets/wp_user_password)
+
 echo "Setting up WordPress with WP-CLI..."
 
 # Wait for MariaDB to be ready
@@ -14,7 +25,9 @@ echo "Database is ready!"
 # Download WordPress if not already present
 if [ ! -f /var/www/html/wp-config.php ]; then
     echo "Installing WordPress..."
-    
+	echo "Admin user will be: ${WP_ADMIN_USER}"
+	echo "Admin email will be: ${WP_ADMIN_EMAIL}"
+	echo "WP URL will be: ${WP_URL}"    
     # Download WordPress core
     wp core download --allow-root
     
