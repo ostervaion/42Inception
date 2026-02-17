@@ -28,14 +28,14 @@ The containers automatically restart in case of failure, and NGINX is the only e
 
 ## Requirements
 
-- Linux Virtual Machine
+- Root access
 - Docker
 - Docker Compose
 - Make
 
 ## Domain Configuration
 
-Edit your `/etc/hosts` file: 127.0.0.1 ostervaion.42.fr
+Edit your `/etc/hosts` file: 127.0.0.1 juetxeba.42.fr
 
 
 ## Environment Configuration
