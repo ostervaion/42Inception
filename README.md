@@ -1,6 +1,6 @@
 *This project has been created as part of the 42 curriculum by juetxeba*
 
-#DESCRIPTION
+###DESCRIPTION
 
 Inception is a System Administration project from the 42 curriculum.
 
@@ -24,7 +24,7 @@ All persistent data is stored inside:
 The containers automatically restart in case of failure, and NGINX is the only exposed service.
 
 
-#INSTRUCTIONS
+###INSTRUCTIONS
 
 ## Requirements
 
