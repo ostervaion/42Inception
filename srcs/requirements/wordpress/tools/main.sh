@@ -25,9 +25,6 @@ echo "Database is ready!"
 # Download WordPress if not already present
 if [ ! -f /var/www/html/wp-config.php ]; then
     echo "Installing WordPress..."
-	echo "Admin user will be: ${WP_ADMIN_USER}"
-	echo "Admin email will be: ${WP_ADMIN_EMAIL}"
-	echo "WP URL will be: ${WP_URL}"    
     # Download WordPress core
     wp core download --allow-root
     

@@ -5,6 +5,9 @@ create_volumes:
 	@mkdir -p ~/data/wordpress-volume
 upb: create_volumes
 	@echo "Building and starting containers"
+	@docker compose -f $(SRCDC) up --build -d
+upb_attacked: create_volumes
+	@echo "Building and starting containers"
 	@docker compose -f $(SRCDC) up --build
 up: create_volumes
 	@echo "Starting containers"
